@@ -1,0 +1,13 @@
+zsc2021: hahaha  i  am xxx qqq
+my-profile:
+  name: xiong哥
+  email: 469712814@qq.com
+
+
+library:
+  location: 南昌加油中国加油
+  books:
+    - name: 哈哈哈
+      description: 哦哦哦哦哦哦哦哦哦哦 描述
+server:
+  port: 8080
