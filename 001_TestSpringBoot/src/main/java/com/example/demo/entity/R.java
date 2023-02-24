@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 
-
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import org.apache.http.HttpStatus;
@@ -16,24 +15,24 @@ import java.util.Map;
 public class R extends HashMap<String, Object> {
     private static final long serialVersionUID = 1L;
 
-    public R setData(Object data){
-        put("data",data);
+    public R setData(Object data) {
+        put("data", data);
         return this;
 
     }
+
     /**
      * @param key 获取指定key的名字
      */
-    public <T> T getData(String key, TypeReference<T> typeReference){
+    public <T> T getData(String key, TypeReference<T> typeReference) {
         // get("data") 默认是map类型 所以再由map转成string再转json,	json再转化成指定的类型
         Object data = get(key);
         return JSON.parseObject(JSON.toJSONString(data), typeReference);
     }
 
 
-
     //利用fastjson进行复杂类型逆转
-    public <T>T getData(TypeReference<T> typeReference){
+    public <T> T getData(TypeReference<T> typeReference) {
         Object data = get("data"); //默认是map类型  需要转化成json类型
         String s = JSON.toJSONString(data);
         //转化成指定的类型
@@ -82,6 +81,7 @@ public class R extends HashMap<String, Object> {
         super.put(key, value);
         return this;
     }
+
     public Integer getCode() {
         return (Integer) this.get("code");
     }

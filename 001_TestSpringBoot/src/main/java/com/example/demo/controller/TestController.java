@@ -3,8 +3,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.entity.ResponseBean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: xiong.qiang
@@ -16,8 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
     @GetMapping("/testGet")
-    public String  testGet(){
-        return "hahahaha   你真好";
+    public ResponseBean  testGet(@RequestParam String userCode ,@RequestParam String userMsg){
+        ResponseBean res = new ResponseBean(userCode, userMsg);
+        System.out.println("-----------hahahahahah-----------");
+        return res;
     }
 
+    @PostMapping("/testPostHeader")
+    public ResponseBean testPost(@RequestParam("userCode") String userCode, @RequestParam("userMsg") String userMsg){
+        return new ResponseBean(userCode,userMsg);
+    }
 }

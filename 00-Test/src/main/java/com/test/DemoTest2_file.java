@@ -3,7 +3,6 @@ package com.test;
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson2.JSON;
 import org.junit.Test;
-import redis.clients.jedis.Jedis;
 
 import java.beans.PropertyDescriptor;
 import java.io.*;
@@ -207,19 +206,19 @@ public class DemoTest2_file {
         }
     }
 
-    @Test
-    public void testRedis() {
-        String name;
-        String age;
-        try (Jedis jedis = new Jedis("127.0.0.1", 6379)) {
-            System.out.println("reds -- > " + jedis.ping());
-            name = jedis.get("name");
-            age = jedis.get("age");
-        }
-        System.out.println("name : " + name + " age : " + age);
-
-
-    }
+//    @Test
+//    public void testRedis() {
+//        String name;
+//        String age;
+//        try (Jedis jedis = new Jedis("127.0.0.1", 6379)) {
+//            System.out.println("reds -- > " + jedis.ping());
+//            name = jedis.get("name");
+//            age = jedis.get("age");
+//        }
+//        System.out.println("name : " + name + " age : " + age);
+//
+//
+//    }
 
     private void printSubFile(File dir) {
         File[] files = dir.listFiles();
