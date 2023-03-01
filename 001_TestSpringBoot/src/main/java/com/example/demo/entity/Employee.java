@@ -3,11 +3,13 @@ package com.example.demo.entity;
 import com.alibaba.fastjson2.annotation.JSONField;
 import org.springframework.lang.Nullable;
 
+import java.io.Serializable;
+
 /**
  * @author xiong.qiang
  * @date 2022/12/19 09:56
  */
-public class Employee {
+public class Employee implements Serializable {
 
     public int score;
     public String date;

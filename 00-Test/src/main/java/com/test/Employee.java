@@ -1,16 +1,23 @@
 package com.test;
 
 import com.alibaba.fastjson2.annotation.JSONField;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.lang.Nullable;
+
+import java.util.Date;
 
 /**
  * @author xiong.qiang
  * @date 2022/12/19 09:56
  */
+
+@Data
+@AllArgsConstructor
 public class Employee {
 
     public int score;
-    public String date;
+    public Date date;
     @JSONField(name = "ID")
     @Nullable
     private int id;

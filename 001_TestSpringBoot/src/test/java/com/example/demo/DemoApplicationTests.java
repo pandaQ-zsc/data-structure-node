@@ -1,12 +1,14 @@
 package com.example.demo;
 
-import com.example.demo.entity.Employee;
-import com.example.demo.entity.EmployeeData;
-import com.example.demo.entity.ResponseBean;
-import com.example.demo.entity.Student;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.example.demo.entity.*;
+import com.example.demo.exception.ServiceException;
+import com.example.demo.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,16 +16,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SpringBootTest
 class DemoApplicationTests {
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    UserMapper userMapper;
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
+
+
+    @Resource
+    RedisTemplate<String, Object> redisTemplate;
+
 
     @Test
     void contextLoads() {
@@ -51,6 +67,44 @@ class DemoApplicationTests {
         String s = squaresList.toString();
         System.out.println(s);
     }
+
+    public static int i = 1;
+
+    @Test
+    public void test00() {
+        Stream<Integer> integerStream = Stream.of(5, 3, 4, 5, 6);
+        OptionalDouble average = integerStream.mapToInt(e -> e).average();
+        double asDouble = average.getAsDouble();
+        System.out.printf("平均值为%f", asDouble);
+        List<Employee> employees = EmployeeData.getEmployees();
+        Optional.ofNullable(employees.get(0)).flatMap(e -> Optional.ofNullable(e.getName()));
+        Map<Integer, String> map = employees.stream().collect(Collectors.toMap(Employee::getId, Employee::getName));
+        System.out.println(map);
+        Map<String, List<Employee>> groupingMap = employees.stream().collect(Collectors.groupingBy(Employee::getName));
+        System.out.println(" ---- > " + groupingMap);
+        System.out.println("============================");
+        groupingMap.forEach((a, b) -> System.out.println(a + " : " + b));
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now);
+        System.out.println("==============================");
+        List<String> list = Arrays.asList("北京 天安门", "上海 东方明珠", "厦门 鼓浪屿");
+        ArrayList<String> res = new ArrayList<>();
+        List<String> collect = list.stream().map(e -> {
+            String[] s = e.split(" ");
+            Stream<Integer> integerStream2 = Stream.of(5, 3, 4, 5, 6);
+            res.addAll(Arrays.asList(s));
+            return e;
+        }).collect(Collectors.toList());
+        for (String s : collect) {
+            System.out.println(s);
+        }
+        res.forEach(System.out::println);
+        System.out.println("===================================");
+        int[] count = {0};
+        list.stream().flatMap(e -> Arrays.stream(e.split(" "))).map(e -> (i++) + ". " + e).forEach(System.out::println);
+
+    }
+
 
     @Test
     public void test01() throws Exception {
@@ -80,4 +134,66 @@ class DemoApplicationTests {
             throw new Exception("restTemplate 未注入");
         }
     }
+
+
+    /**
+     * Redis测试
+     */
+    @Test
+    public void testRedisDemo1() throws ServiceException {
+        Boolean ageExist = stringRedisTemplate.hasKey("age");
+        System.out.println(ageExist);
+        Set<String> keys = stringRedisTemplate.keys("*");
+        System.out.println(keys);
+        stringRedisTemplate.opsForValue().set("name", "tom");
+        String name = stringRedisTemplate.opsForValue().get("name");
+        System.out.println(name);
+        stringRedisTemplate.delete("name");
+        System.out.println(name);
+
+        System.out.println("==============================");
+        redisTemplate.opsForValue().set("a", new Employee(20, "xiong"));
+        if (Optional.ofNullable(redisTemplate.opsForValue().get("a")).isPresent()) {
+            Object a1 = redisTemplate.opsForValue().get("a");
+            if (a1 instanceof Employee) {
+                System.out.println(a1.getClass().getName() + "==========");
+
+            }
+            Employee a = (Employee) redisTemplate.opsForValue().get("a");
+
+            System.out.println(a);
+
+        } else {
+            throw new ServiceException("不存在键值");
+        }
+
+    }
+
+    @Test
+    public void testUUIdDemo() {
+        String uuid = IdWorker.get32UUID();
+        System.out.println(uuid);
+        System.out.println(UUID.randomUUID().toString());
+        System.out.println(UUID.randomUUID().toString().replace("-", ""));
+
+    }
+
+    @Test
+    public void testMybatisAutoKeyDemo() {
+
+        for (int i = 0; i < 10; i++) {
+            User user = new User();
+            user.setName("Tom");
+            user.setAge(20);
+            user.setId(IdWorker.getId(user));
+            userMapper.insert(user);
+            Long id = user.getId();
+            System.out.println("插入的主键值为:" + id);
+
+
+        }
+
+    }
+
+
 }

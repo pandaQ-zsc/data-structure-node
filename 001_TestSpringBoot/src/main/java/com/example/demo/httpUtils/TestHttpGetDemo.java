@@ -20,15 +20,17 @@ public class TestHttpGetDemo {
     @Autowired
     private RestTemplate restTemplate;
 
+
     @Test
     public void test01() throws Exception {
         String url = "http://localhost:8080/testGet";
-        if (Optional.ofNullable(restTemplate).isPresent()){
-        ResponseEntity<ResponseBean> responseEntity = restTemplate.getForEntity(url, ResponseBean.class);
-        System.out.println(responseEntity);
-        }else {
-            throw  new Exception("restTemplate 未注入");
+        if (Optional.ofNullable(restTemplate).isPresent()) {
+            ResponseEntity<ResponseBean> responseEntity = restTemplate.getForEntity(url, ResponseBean.class);
+            System.out.println(responseEntity);
+        } else {
+            throw new Exception("restTemplate 未注入");
         }
     }
+
 
 }
