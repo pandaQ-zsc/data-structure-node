@@ -6,6 +6,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author xxx
+ */
 @SpringBootApplication
 @MapperScan("com.example.demo.**.mapper")
 public class DemoApplication implements InitializingBean {
@@ -18,6 +21,19 @@ public class DemoApplication implements InitializingBean {
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
+//        Runnable runnable = () -> {
+//            while (true) {
+//                System.out.println("等待1....");
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+//
+//        Thread thread = new Thread(runnable);
+//        thread.start();
     }
 
     @Override

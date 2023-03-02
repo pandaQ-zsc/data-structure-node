@@ -141,25 +141,25 @@ class DemoApplicationTests {
      */
     @Test
     public void testRedisDemo1() throws ServiceException {
-        Boolean ageExist = stringRedisTemplate.hasKey("age");
-        System.out.println(ageExist);
-        Set<String> keys = stringRedisTemplate.keys("*");
-        System.out.println(keys);
-        stringRedisTemplate.opsForValue().set("name", "tom");
-        String name = stringRedisTemplate.opsForValue().get("name");
-        System.out.println(name);
-        stringRedisTemplate.delete("name");
-        System.out.println(name);
+//        Boolean ageExist = stringRedisTemplate.hasKey("age");
+//        System.out.println(ageExist);
+//        Set<String> keys = stringRedisTemplate.keys("*");
+//        System.out.println(keys);
+//        stringRedisTemplate.opsForValue().set("name", "tom");
+//        String name = stringRedisTemplate.opsForValue().get("name");
+//        System.out.println(name);
+//        stringRedisTemplate.delete("name");
+//        System.out.println(name);
 
         System.out.println("==============================");
-        redisTemplate.opsForValue().set("a", new Employee(20, "xiong"));
-        if (Optional.ofNullable(redisTemplate.opsForValue().get("a")).isPresent()) {
-            Object a1 = redisTemplate.opsForValue().get("a");
+        redisTemplate.opsForValue().set("t", new Employee(20, "xiong"));
+        if (Optional.ofNullable(redisTemplate.opsForValue().get("t")).isPresent()) {
+            Object a1 = redisTemplate.opsForValue().get("t");
             if (a1 instanceof Employee) {
                 System.out.println(a1.getClass().getName() + "==========");
 
             }
-            Employee a = (Employee) redisTemplate.opsForValue().get("a");
+            Employee a = (Employee) redisTemplate.opsForValue().get("t");
 
             System.out.println(a);
 
@@ -180,7 +180,6 @@ class DemoApplicationTests {
 
     @Test
     public void testMybatisAutoKeyDemo() {
-
         for (int i = 0; i < 10; i++) {
             User user = new User();
             user.setName("Tom");
@@ -189,10 +188,23 @@ class DemoApplicationTests {
             userMapper.insert(user);
             Long id = user.getId();
             System.out.println("插入的主键值为:" + id);
-
-
         }
 
+    }
+
+    @Test
+    public void testTimedTask() {
+//        Runnable runnable = () -> {
+//            while (true) {
+//                try {
+//                    Thread.sleep(1000);
+//                    System.out.println("等待2s....");
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+  
     }
 
 
