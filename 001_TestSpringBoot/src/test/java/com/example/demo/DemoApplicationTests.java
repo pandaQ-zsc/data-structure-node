@@ -3,8 +3,11 @@ package com.example.demo;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.example.demo.entity.*;
 import com.example.demo.exception.ServiceException;
+import com.example.demo.job.PrintWordsJob;
 import com.example.demo.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -152,12 +156,12 @@ class DemoApplicationTests {
 //        System.out.println(name);
 
         System.out.println("==============================");
+
         redisTemplate.opsForValue().set("t", new Employee(20, "xiong"));
         if (Optional.ofNullable(redisTemplate.opsForValue().get("t")).isPresent()) {
             Object a1 = redisTemplate.opsForValue().get("t");
             if (a1 instanceof Employee) {
                 System.out.println(a1.getClass().getName() + "==========");
-
             }
             Employee a = (Employee) redisTemplate.opsForValue().get("t");
 
@@ -204,7 +208,30 @@ class DemoApplicationTests {
 //                }
 //            }
 //        };
-  
+
+    }
+
+    @Test
+    public void testJob() throws SchedulerException, InterruptedException {
+        //创建调度器Scheduler
+        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+        //定义任务调度实例，并与TestJob绑定
+        JobDetail job = JobBuilder.newJob(PrintWordsJob.class)
+                .withIdentity("testJob", "test")
+                .build();
+        //CronTrigger 或者 SimpleTrigger
+        Trigger trigger = TriggerBuilder.newTrigger()
+                .withIdentity("testTrigger", "test")
+                .startNow()
+                //每个1s 执行一次
+                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(1).withRepeatCount(10)).build();
+        scheduler.scheduleJob(job, trigger);
+        System.out.println("---------------scheduler start !  ---------------");
+        scheduler.start();
+        TimeUnit.SECONDS.sleep(10);
+        scheduler.shutdown();
+        System.out.println("---------------scheduler shutdown !  ---------------");
+
     }
 
 

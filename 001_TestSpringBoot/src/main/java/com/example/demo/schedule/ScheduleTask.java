@@ -13,13 +13,12 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * 如果类被@Lazy修饰，可以让SpringBoot在启动时没有实例化，那么定时任务就不会开始执行。
+ * 如果类被@Lazy修饰，可以让SpringBoot在启动时没有实例化，那么定时任务就不会开始执行。(正常启动将不会被初始化)
  */
 //@Lazy
 @Component
 public class ScheduleTask {
     public static final Logger LOGGER = LoggerFactory.getLogger(ScheduleTask.class);
-
 
     //每隔1秒执行一次
     @Async
