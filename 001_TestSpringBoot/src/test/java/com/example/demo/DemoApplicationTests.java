@@ -215,19 +215,28 @@ class DemoApplicationTests {
     public void testJob() throws SchedulerException, InterruptedException {
         //创建调度器Scheduler
         Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+        JobDataMap jobDataMap = new JobDataMap();
+        jobDataMap.put("xxx", "qqq");
+        jobDataMap.put("aaa", "bbb");
+        jobDataMap.put("ccc", "ddd");
         //定义任务调度实例，并与TestJob绑定
         JobDetail job = JobBuilder.newJob(PrintWordsJob.class)
                 .withIdentity("testJob", "test")
+                .setJobData(jobDataMap)
                 .build();
-        //CronTrigger 或者 SimpleTrigger
+        //CronTrigger(更加常用) 或者 SimpleTrigger
         Trigger trigger = TriggerBuilder.newTrigger()
                 .withIdentity("testTrigger", "test")
                 .startNow()
+                //SimpleTrigger -->  SimpleScheduleBuilder
                 //每个1s 执行一次
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(1).withRepeatCount(10)).build();
+        //CronTrigger -->  CronScheduleBuilder
+//                .withSchedule(CronScheduleBuilder.cronSchedule("* 30 10 ? * 1/5 2018"))
         scheduler.scheduleJob(job, trigger);
         System.out.println("---------------scheduler start !  ---------------");
         scheduler.start();
+        //业务:10s
         TimeUnit.SECONDS.sleep(10);
         scheduler.shutdown();
         System.out.println("---------------scheduler shutdown !  ---------------");
