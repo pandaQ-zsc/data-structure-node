@@ -16,6 +16,7 @@ public class DemoApplication implements InitializingBean {
     private final LibraryProperties libraryProperties;
 
     public DemoApplication(LibraryProperties libraryProperties) {
+        System.out.println(libraryProperties);
         this.libraryProperties = libraryProperties;
     }
 

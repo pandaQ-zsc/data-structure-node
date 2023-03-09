@@ -1,8 +1,11 @@
 package com.test;
 
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.Nullable;
 
@@ -10,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -66,6 +70,7 @@ public class EmployeeCopy {
     }
 
     private static int i = 1;
+    private static final Logger LOG = LoggerFactory.getLogger(EmployeeCopy.class);
 
     public static void main(String[] args) {
         List<Employee> employees = EmployeeData.getEmployees();
@@ -78,12 +83,19 @@ public class EmployeeCopy {
         collect.forEach((a, b) -> System.out.println(a + " : " + b));
         LocalDateTime now = LocalDateTime.now();
         String format = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
         Date from = Date.from(now.toInstant(ZoneOffset.ofHours(8)));
         Date from1 = Date.from(now.toInstant(ZoneOffset.UTC));
         System.out.println(now);
         System.out.println(from);
         System.out.println(from1);
+        System.out.println("==================JSON=================");
+        System.out.println(JSON.toJSONString(collect));
+        String s = JSON.toJSONString(collect);
+        Object parse = JSON.parse(s);
+        if (parse instanceof Map) {
+            HashMap<String, List<EmployeeCopy>> map = new HashMap<>((Map) parse);
+            System.out.println(map.toString());
+        }
     }
 
 

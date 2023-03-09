@@ -240,8 +240,5 @@ class DemoApplicationTests {
         TimeUnit.SECONDS.sleep(10);
         scheduler.shutdown();
         System.out.println("---------------scheduler shutdown !  ---------------");
-
     }
-
-
 }
