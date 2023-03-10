@@ -11,12 +11,14 @@ library:
       description: 哦哦哦哦哦哦哦哦哦哦 描述
 server:
   port: 8088
-
-datasource:
-  url: jdbc:mysql://127.0.0.1:3306/SSA?characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
-  username: root
-  password: 123
-  driver-class-name: com.mysql.cj.jdbc.Driver
+spring:
+  application:
+    name: 001-TestSpringBoot
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/SSA?characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+    username: root
+    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
 redis:
   host: 127.0.0.1
   port: 6379
