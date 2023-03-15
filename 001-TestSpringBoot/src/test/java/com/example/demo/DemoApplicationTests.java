@@ -82,7 +82,7 @@ class DemoApplicationTests {
         System.out.printf("平均值为%f", asDouble);
         List<Employee> employees = EmployeeData.getEmployees();
         Optional.ofNullable(employees.get(0)).flatMap(e -> Optional.ofNullable(e.getName()));
-        Map<Integer, String> map = employees.stream().collect(Collectors.toMap(Employee::getId, Employee::getName));
+        Map<Long, String> map = employees.stream().collect(Collectors.toMap(Employee::getId, Employee::getName));
         System.out.println(map);
         Map<String, List<Employee>> groupingMap = employees.stream().collect(Collectors.groupingBy(Employee::getName));
         System.out.println(" ---- > " + groupingMap);

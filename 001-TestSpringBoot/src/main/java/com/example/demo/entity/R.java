@@ -12,6 +12,7 @@ import java.util.Map;
  * @author: xiong.qiang
  * @date: 2023/2/21 16:20
  */
+//因为继承了HashMap类, HashMap类已经实现了'Serializable'接口，因此'R'类也自动继承了'Serializable'的功能
 public class R extends HashMap<String, Object> {
     private static final long serialVersionUID = 1L;
 
@@ -33,6 +34,7 @@ public class R extends HashMap<String, Object> {
 
     //利用fastjson进行复杂类型逆转
     public <T> T getData(TypeReference<T> typeReference) {
+        // get("data") 默认是map类型 所以再由map转成string再转json,	json再转化成指定的类型
         Object data = get("data"); //默认是map类型  需要转化成json类型
         String s = JSON.toJSONString(data);
         //转化成指定的类型

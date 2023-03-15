@@ -3,6 +3,10 @@ my-profile:
   name: xiong哥
   email: 469712814@qq.com
 
+#配置swaggerApi文档是否开启
+swagger:
+  enable: true
+
 
 library:
   location: xixixix
