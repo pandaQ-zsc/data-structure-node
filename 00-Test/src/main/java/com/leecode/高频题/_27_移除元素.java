@@ -1,6 +1,8 @@
 package com.leecode.高频题;
 
 
+import java.util.HashMap;
+
 /*
  * https://leetcode.cn/problems/remove-element/
  *
@@ -23,13 +25,38 @@ public class _27_移除元素 {
 
     public static void main(String[] args) {
 //        int res = removeElement(new int[]{3, 2, 2, 3},3);
+        //good choose : removeElement
         int res = removeElement(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
-//        int res2 = removeElement2(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
+        int res2 = removeElement2(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
         int res3 = removeElement3(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
+        int res4 = removeElement5(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
         System.out.println(res);
 //        System.out.println(res2);
         System.out.println(res3);
+        System.out.println(res4);
     }
+
+    public static int removeElement5(int[] nums, int val) {
+        int l = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != nums[l]) {
+                nums[l] = nums[i];
+                l++;
+            }
+        }
+        return l;
+    }
+
+    public static int removeElement4(int[] nums, int val) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if (num == val) {
+                map.put(val, map.getOrDefault(val, 0) + 1);
+            }
+        }
+        return nums.length - map.get(val);
+    }
+
 
     public static int removeElement3(int[] nums, int val) {
         int index = 0;
@@ -53,9 +80,6 @@ public class _27_移除元素 {
                 nums[slowIndex] = nums[fastIndex];
                 slowIndex++;
             }
-        }
-        for (int num : nums) {
-            System.out.print(num + '-');
         }
         return slowIndex;
 
