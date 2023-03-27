@@ -1,6 +1,6 @@
 package com.sort;
 
-import com.leecode.八大排序算法.Sort;
+import com.lee.八大排序算法.Sort;
 
 /**
  * 快速排序

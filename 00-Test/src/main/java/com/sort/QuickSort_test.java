@@ -1,9 +1,6 @@
 package com.sort;
 
-import com.leecode.八大排序算法.Sort;
-
 import java.util.Arrays;
-import java.util.Random;
 ////https://leetcode-cn.com/problems/sort-an-array/solution/912-pai-xu-shu-zu-kuai-pai-zhi-shuang-bi-9z8h/
 /**
  * 快速排序

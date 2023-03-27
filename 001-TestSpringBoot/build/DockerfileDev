@@ -1,5 +1,5 @@
-# 拉取指定的镜像文件
-FROM java:8
+# 拉取指定的镜像文件 如果你以 scratch 为基础镜像的话，意味着你不以任何镜像为基础，接下来所写的指令将作为镜像第一层开始存在。
+FROM scratch
 # MAINTAINER 指令允许你给将要制作的镜像设置作者信息
 MAINTAINER xiongqiang <469712814@qq.com>
 # 容器内创建一个 apps 目录，用来挂载 jar 包
