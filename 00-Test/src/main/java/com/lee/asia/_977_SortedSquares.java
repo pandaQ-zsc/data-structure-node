@@ -22,7 +22,7 @@ import java.util.Comparator;
 //
 
 public class _977_SortedSquares {
-    //Processing idea:  double point
+    //Processing idea:  double pointer
     public static int[] sortedSquares(int[] nums) {
         ArrayList<Integer> list = new ArrayList<>();
         for (int num : nums) {
@@ -37,32 +37,27 @@ public class _977_SortedSquares {
     }
 
     public static int[] sortedSquares2(int[] nums) {
-        int[] res = new int[nums.length];
-        int index = nums.length - 1;
         int l = 0;
         int r = nums.length - 1;
+        int index = nums.length -1;
+        int[] res = new int[nums.length];
         while (l <= r) {
-            if (nums[l] * nums[l] > nums[r] * nums[r]) {
-                res[index--] = nums[l] * nums[l];
-                l++;
-            } else {
+            if (nums[l] * nums[l] < nums[r] * nums[r]) {
                 res[index--] = nums[r] * nums[r];
                 r--;
+            } else {
+                res[index--] = nums[l] * nums[l];
+                l++;
             }
         }
-        String s = Arrays.toString(nums);
-        System.out.println("--------->" + s);
-        String[] strArr = new String[]{"1", "3", "4", "4"};
-        ArrayList<String> strings = new ArrayList<>();
-        ArrayList<Integer> integerArrayList = new ArrayList<>();
-
-        Collections.addAll(integerArrayList);
         return res;
     }
 
     public static void main(String[] args) {
         int[] ints = sortedSquares(new int[]{-7, -3, 2, 3, 11});
+        System.out.println(Arrays.toString(ints));
         int[] ints2 = sortedSquares2(new int[]{-7, -3, 2, 3, 11});
+        System.out.println(Arrays.toString(ints2));
 
     }
 }

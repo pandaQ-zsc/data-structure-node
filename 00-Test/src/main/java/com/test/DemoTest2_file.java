@@ -235,12 +235,18 @@ public class DemoTest2_file {
 
     @Test
     public void testDemo2() {
-        char a = 'a';
+        char a = 97;
         System.out.println(a);
         System.out.println("================");
         List<Employee> list = EmployeeData.getEmployees();
+        Employee employee = list.stream().max(Comparator.comparingDouble(Employee::getSalary)).get();
+        System.out.println("max salary Employee is -> "+employee);
+        System.out.println("=========================");
         HashMap<Integer, List<Employee>> collect = list.stream().collect(Collectors.groupingBy(Employee::getId, HashMap::new, Collectors.toList()));
+        Map<Integer, List<Employee>> collect1 = list.stream().collect(Collectors.groupingBy(Employee::getId));
         System.out.println(collect);
+        System.out.println("++++++++++++++++++++++");
+        System.out.println(collect1);
         System.out.println("++++++++++++++++++++++");
         String s = JSON.toJSONString(collect);
         System.out.println(s);

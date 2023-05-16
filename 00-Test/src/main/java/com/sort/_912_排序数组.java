@@ -1,5 +1,8 @@
 package com.sort;
 
+/**
+ * 快速排序
+ */
 public class _912_排序数组 {
     public static int[] sortArray(int[] nums) {
         quickSort(0, nums.length, nums);

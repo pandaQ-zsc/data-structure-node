@@ -1,39 +1,99 @@
 package com.sort;
 
-public class BubbleSort {
-    public static int[] bubbleSort2(int[] array) {
-        if (array.length == 0)
-            return array;
-        for (int i = 0; i < array.length; i++)
-            for (int j = 0; j < array.length - 1 - i; j++)
-                if (array[j + 1] < array[j]) {
-                    int temp = array[j + 1];
-                    array[j + 1] = array[j];
-                    array[j] = temp;
-                }
-        return array;
-    }
+/**
+ * 冒泡排序：Java
+ *
+ * @date 2023/03/11
+ */
 
-    //优化版
-    static void bubbleSort(Integer[] array) {
-        for (int end = array.length - 1; end > 0; end--) {
-            //sortedIndex主要是为了数组完全有序做准备的
-            //sortedIndex的初始值默认设置为1时.在数组完全有序的时候，一轮扫描后end = 0就直接结束了
-            int sortedIndex = 1;
-            for (int begin = 1; begin <= end; begin++) {
-                if (array[begin] < array[begin - 1]) {
-                    int tmp = array[begin];
-                    array[begin] = array[begin - 1];
-                    array[begin - 1] = tmp;
-                    //记录最后一次交换在哪里
-                    sortedIndex = begin;
+public class BubbleSort {
+
+    /*
+     * 冒泡排序
+     *
+     * 参数说明：
+     *     a -- 待排序的数组
+     *     n -- 数组的长度
+     */
+    public static void bubbleSort1(int[] a, int n) {
+        for(int i = n-1;i>0;i--){
+            int flag = 0;
+            for (int j = 0; j < i; j++) {
+                if (a[j] > a[j+1]){
+                    int tmp = a[j];
+                    a[j] = a[j+1];
+                    a[j+1] = tmp;
+                    flag = 1;
                 }
             }
-            //  end赋值后 ， 下一轮扫描就从 1到end  而不是数组的尾部
-
-            end = sortedIndex;
+            if (flag == 0){
+                break;
+            }
         }
     }
 
+    public static void bubbleSort_test(int[] a, int n) {
+        for (int i = n-1; i >0 ; i--) {
+            int flag = 0;
+            for (int j = 0; j < i; j++) {
+                if (a[j] > a[j+1]){
+                    int tmp = a[j];
+                    a[j] = a[j+1];
+                    a[j+1] = tmp;
+                    flag = 1;
+                }
+            }
+            if (flag ==1) {
+                break;
+            }
+        }
+    }
 
+    /*
+     * 冒泡排序(改进版)
+     *
+     * 参数说明：
+     *     a -- 待排序的数组
+     *     n -- 数组的长度
+     */
+    public static void bubbleSort2(int[] a, int n) {
+        for (int i = n - 1; i > 0; i--) {
+           int  flag = 0;            // 初始化标记为0
+            // 将a[0...i]中最大的数据放在末尾
+            for (int j = 0; j < i; j++) {
+                if (a[j] > a[j + 1]) {
+                    // 交换a[j]和a[j+1]
+                    int tmp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = tmp;
+                    flag = 1;    // 若发生交换，则设标记为1
+                }
+            }
+            if (flag == 0) {
+                break;            // 若没发生交换，则说明数列已有序。
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int i;
+//        int[] a = {20, 40, 30, 10, 60, 50};
+        int a[] = {30, 40, 60, 10, 20, 50};
+//        int a[] = {10,20,30,40,50,60};
+        System.out.printf("before sort:");
+        for (i = 0; i < a.length; i++) {
+            System.out.printf("%d ", a[i]);
+        }
+        System.out.printf("\n");
+
+//        bubbleSort_test(a, a.length);
+//        bubbleSort1(a, a.length);
+        bubbleSort1(a, a.length);
+
+        System.out.printf("after  sort:");
+        for (i = 0; i < a.length; i++) {
+            System.out.printf("%d ", a[i]);
+        }
+        System.out.printf("\n");
+    }
 }

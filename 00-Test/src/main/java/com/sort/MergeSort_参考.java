@@ -7,8 +7,11 @@ import java.util.Arrays;
 public class MergeSort_参考 {
     public static void main(String []args){
         int []arr = {9,8,7,6,5,4,3,2,1};
-        sort(arr);
-        System.out.println(Arrays.toString(arr));
+        //        int a[] = {60,50,40,30,20,10};
+//        int a[] = {30, 40, 60, 10, 20, 50};
+	int a[] = {10,20,30,40,50,60};
+        sort(a);
+        System.out.println(Arrays.toString(a));
     }
     public static void sort(int []arr){
         int []temp = new int[arr.length];//在排序前，先建好一个长度等于原数组长度的临时数组，避免递归中频繁开辟空间

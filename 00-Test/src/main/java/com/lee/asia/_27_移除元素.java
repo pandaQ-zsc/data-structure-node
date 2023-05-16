@@ -1,6 +1,7 @@
 package com.lee.asia;
 
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /*
@@ -26,25 +27,26 @@ public class _27_移除元素 {
     public static void main(String[] args) {
 //        int res = removeElement(new int[]{3, 2, 2, 3},3);
         //good choose : removeElement
-        int res = removeElement(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
-        int res2 = removeElement2(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
-        int res3 = removeElement3(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
-        int res4 = removeElement5(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
+//        int res = removeElement(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
+//        int res2 = removeElement2(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
+//        int res3 = removeElement3(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
+        int res = removeElement5(new int[]{0,1,2,2,3,0,4,2}, 2);
         System.out.println(res);
 //        System.out.println(res2);
-        System.out.println(res3);
-        System.out.println(res4);
+//        System.out.println(res3);
+//        System.out.println(res4);
     }
 
     public static int removeElement5(int[] nums, int val) {
-        int l = 0;
+       int index = 0;
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != nums[l]) {
-                nums[l] = nums[i];
-                l++;
+            if (nums[i] != val){
+                nums[index++] = nums[i];
             }
         }
-        return l;
+        String string = Arrays.toString(nums);
+        System.out.println(string);
+        return  index;
     }
 
     public static int removeElement4(int[] nums, int val) {

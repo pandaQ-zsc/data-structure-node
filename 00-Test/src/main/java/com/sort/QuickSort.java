@@ -1,61 +1,101 @@
 package com.sort;
 
-import com.lee.八大排序算法.Sort;
+import java.io.FileReader;
 
 /**
- * 快速排序
+ * 快速排序：Java
+ *
+ * @author skywang
+ * @date 2014/03/11
  */
-public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 
-    @Override
-    protected void sort() {
-        sort(0, array.length);
-    }
-    /**
-     * 对 [begin, end) 范围的元素进行快速排序
-     */
-    private void sort(int begin, int end){
-        if(end - begin < 2) return;
+public class QuickSort {
 
-        // 确定轴点位置 O(n)
-        int mid = pivotIndex(begin, end);
-        // 对子序列进行快速排序
-        sort(begin, mid);
-        sort(mid + 1, end);
-    }
-    /**
-     * 构造出 [begin, end) 范围的轴点元素
-     * @return 轴点元素的最终位置
+    /*
+     * 快速排序
+     *
+     * 参数说明：
+     *     a -- 待排序的数组
+     *     l -- 数组的左边界(例如，从起始位置开始排序，则l=0)
+     *     r -- 数组的右边界(例如，排序截至到数组末尾，则r=a.length-1)
      */
-    private int pivotIndex(int begin, int end){
-        // 随机选择轴点元素
-        swap(begin, begin + (int)Math.random()*(end - begin));
-        // 备份begin位置的元素
-        T pivot = array[begin];
-        // end指向最后一个元素
-        end--;
-        while(begin < end){
-            while(begin < end){	// 从右往左扫描
-                if(cmp(pivot, array[end]) < 0){ // 右边元素 > 轴点元素
-                    end--;
-                }else{ // 右边元素 <= 轴点元素
-                    array[begin++] = array[end];
-                    break;
+    public static void quickSort(int[] a, int l, int r) {
+        //将 quickSort(a, l, i - 1) 后不符合边界条件的 递归去掉。
+        if (l < r) {
+            int i, j, x;
+            i = l;
+            j = r;
+            x = a[i];
+            // 每次循环结束时：也就是i = j时确定了基准元素位置
+            while (i < j) {
+                while (i < j && a[j] > x) {
+                    j--; // 从右向左找第一个小于x的数
+                }
+                if (i < j) {
+                    a[i++] = a[j];
+                }
+                while (i < j && a[i] < x) {
+                    i++; // 从左向右找第一个大于x的数
+                }
+                if (i < j) {
+                    a[j--] = a[i];
                 }
             }
-            while(begin < end){ // 从左往右扫描
-                if(cmp(pivot, array[begin]) > 0){ // 左边元素 < 轴点元素
-                    begin++;
-                }else{ // 左边元素 >= 轴点元素
-                    array[end--] = array[begin];
-                    break;
-                }
-            }
+            a[i] = x;
+            //运行到这里： i 就已经等于 j 了
+            quickSort(a, l, i - 1); /* 递归调用 */
+            quickSort(a, i + 1, r); /* 递归调用 */
         }
-        // 将轴点元素放入最终的位置
-        array[begin] = pivot;
-        // 返回轴点元素的位置
-        return begin; // begin==end
     }
 
+    public static void quickSort2(int[] a, int l, int r) {
+        if (l < r){
+            int i = l, j = r, x = a[i];
+            while (i<j) {
+                while (i < j && a[j] > x) {
+                    j--;
+                }
+                if (i < j) {
+                    a[i++] = a[j];
+                }
+                while (i < j && a[i] < x) {
+                    i++;
+                }
+                if (i < j) {
+                    a[j--] = a[i];
+                }
+            }
+            a[i] = x;
+            quickSort2(a, l, i - 1);
+            quickSort2(a, j + 1, r);
+        }
+    }
+
+
+
+
+    public static void main(String[] args) {
+        int i;
+//        int a[] = {60,50,40,30,20,10};
+//        int a[] = {30, 40, 60, 10, 20, 50};
+	int a[] = {10,20,30,40,50,60};
+        // ----------------------------------------------other case-------------------------------------------------
+        //用于测试while(i < j)的特殊情况：在这种情况下，i 和 j 最初的值就相等，循环条件不满足，不会进入循环体。由于所有元素相等，不需要进行交换操作，直接跳过这个循环即可。但这是一个特殊情况，一般情况下 while (i < j) 循环是必须的，以确保快速排序算法的正确性和稳定性。
+//	int a[] = {10,10,10,10,10,10};
+
+
+        System.out.printf("【Quick sort】 before sort:");
+        for (i = 0; i < a.length; i++) {
+            System.out.printf("%d ", a[i]);
+        }
+        System.out.printf("\n");
+
+        quickSort2(a, 0, a.length - 1);
+
+        System.out.printf("【Quick sort】 after  sort:");
+        for (i = 0; i < a.length; i++) {
+            System.out.printf("%d ", a[i]);
+        }
+        System.out.printf("\n");
+    }
 }

@@ -1,8 +1,9 @@
 package com.thread;
 //https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/multi-thread/Java%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93.md#81-%E8%AE%A4%E8%AF%86%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81
 public class DeadLockDemo2 {
-    private static final Object resource1 = new Object();
-    private static final Object resource2 = new Object();
+    //private  -> public 是为了给其他class使用
+    public  static final Object resource1 = new Object();
+    public static final Object resource2 = new Object();
 
     public static void main(String[] args) {
         new Thread(() -> {

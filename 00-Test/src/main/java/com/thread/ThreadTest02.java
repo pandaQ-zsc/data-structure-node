@@ -15,7 +15,9 @@ public class ThreadTest02 implements Runnable {
             // 使用synchronized(同步监视器)
             // {
             //     包裹业务代码  }
+            synchronized (this){
             show();
+            }
 
         }
     }

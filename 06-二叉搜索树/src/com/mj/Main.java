@@ -101,12 +101,7 @@ public class Main {
 		BinaryTrees.println(bst);
 		
 		System.out.print("层次遍历：");
-		bst.levelOrder(new Visitor<Integer>() {
-			@Override
-			public void visit(Integer element) {
-				System.out.print("_" + element + "_ ");
-			}
-		});
+		bst.levelOrder(element -> System.out.print("_" + element + "_ "));
 		System.out.println();
 		System.out.print("前序遍历：");
 		bst.preOrderTraversal(new Visitor<Integer>() {
@@ -184,6 +179,8 @@ public class Main {
 		BinaryTrees.println(bst);
 	}
 	public static void main(String[] args) {
-		test10();
+		//打印二叉树 。 打印前序遍历、中序遍历、后序遍历
+		test6();
+//		test10();
 	}
 }

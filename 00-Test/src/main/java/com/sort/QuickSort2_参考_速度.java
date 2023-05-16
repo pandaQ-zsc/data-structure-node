@@ -24,7 +24,7 @@ class Solution {
 
     }
     //分割
-    //每次找到基准元素对应的排序位置
+    //也就是每次确定一个元素， 将数组中比这个元素小的放左边   数组中比这个元素大的放右边
     public int partition(int[] nums, int start, int end) {
         swap(nums,start,start + (int)(Math.random()*(end-start)));
         int pivot = nums[start];

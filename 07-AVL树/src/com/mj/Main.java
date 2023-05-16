@@ -42,7 +42,10 @@ public class Main {
 		
 		BinaryTrees.println(avl);
 	}
-	public static void main(String[] args) {
-		test2();
+
+
+	publwic static void main(String[] args) {
+//		test2();
+
 	}
 }

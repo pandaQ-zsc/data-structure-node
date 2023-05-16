@@ -19,8 +19,8 @@ import java.util.HashMap;
 //
 //链接：https://leetcode.cn/problems/valid-anagram
 public class _242_有效的字母异位词 {
+    //ok 1
     public static boolean isAnagram(String s, String t) {
-        HashMap map = new HashMap<Character, Integer>();
         if (s.length() != t.length()) {
             return false;
         }
@@ -31,19 +31,36 @@ public class _242_有效的字母异位词 {
             countArray[c - 'a']++;
         }
         for (int i = 0; i < tArray.length; i++) {
-            int i1 = countArray[tArray[i] - 'a']--;
+            // 注意：如果是 countArray[tArray[i] - 'a']-- 的话意味着会造成： countArray先赋值给i1  再进行countArray--  这样i1就不是--后值
+            int i1 = --countArray[tArray[i] - 'a'];
             if (i1 < 0) {
-                return false;
-            }
-        }
-        for (int i = 0; i < countArray.length; i++) {
-            if (countArray[i] != 0) {
                 return false;
             }
         }
         return true;
     }
+    //test
+    public static boolean isAnagram3(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        char[] s1 = s.toCharArray();
+        char[] t1 = t.toCharArray();
+        int[] countArray = new int[26];
+        for(int i = 0 ; i < s.length(); i++){
+            countArray[s1[i] - 'a']++;
+        }
+        for (int i = 0; i < t.length(); i++) {
+             int tmp = --countArray[t1[i] - 'a'];
+             if (tmp  < 0){
+                 return false;
+             }
+        }
+        return true;
+    }
 
+
+    //ok2
     public static boolean isAnagram2(String s, String t) {
         if (s.length() != t.length()) {
             return false;
@@ -65,7 +82,7 @@ public class _242_有效的字母异位词 {
 
 
     public static void main(String[] args) {
-        boolean anagram = isAnagram2("anagram", "nagmram");
+        boolean anagram = isAnagram3("abbba", "bbbaa");
         System.out.println(anagram);
 
     }
