@@ -4,14 +4,14 @@ package com.sort;
  * @author: xiong.qiang
  * @date: 2023/4/11 09:56
  */
-public class BucketSort {
+public class BucketSort_test {
 
     /*
      * 桶排序
      *
      * 参数说明：
      *     a -- 待排序数组
-     *     max -- 数组a中最大值的范围  也可以通过  对数组进行一次for循环来求得
+     *     max -- 数组a中最大值的范围
      */
     public static void bucketSort(int[] a, int max) {
         int[] buckets;
@@ -35,6 +35,24 @@ public class BucketSort {
 
         buckets = null;
     }
+    static void bucketSort1(int[] nums){
+        int max = Integer.MIN_VALUE;
+        for(int num : nums){
+            max = Math.max(max,num);
+        }
+        int[] count = new int[max+1];
+        for(int num : nums){
+            count[num]++;
+        }
+        int index = 0;
+        for (int i = 0; i < count.length; i++) {
+            while(count[i]!=0){
+                nums[index++] = i;
+                count[i]--;
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         int i;
@@ -46,8 +64,8 @@ public class BucketSort {
         }
         System.out.printf("\n");
 
-        bucketSort(a, 41); // 桶排序
-
+//        bucketSort(a, 41); // 桶排序
+        bucketSort1(a);
         System.out.printf("after  sort:");
         for (i=0; i<a.length; i++) {
             System.out.printf("%d ", a[i]);

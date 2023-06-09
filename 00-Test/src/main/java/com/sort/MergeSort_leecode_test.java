@@ -15,17 +15,15 @@ import java.util.Arrays;
 //重复步骤 3 直到某一指针达到序列尾；
 //
 //将另一序列剩下的所有元素直接复制到合并序列尾。
-public class MergeSort_leecode {
+public class MergeSort_leecode_test {
 
     public static void main(String[] args) {
-//        int[] a = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+        int[] arr = {9, 8, 7, 6, 5, 4, 3, 2, 1};
         //        int a[] = {60,50,40,30,20,10};
-//        int a[] = {10, 20, 30, 40, 50, 60};
-        //hello algo
         int a[] = {7,3,2,6,0,1,5,4};
+//        int a[] = {10, 20, 30, 40, 50, 60};
+        sortArray(a);
         System.out.println(Arrays.toString(a));
-        int[] res = sortArray(a);
-        System.out.println(Arrays.toString(res));
     }
 
     //避免函数中传递
@@ -45,7 +43,7 @@ public class MergeSort_leecode {
             int mid = (l + r) >> 1;
             mergeSort(nums, l, mid);
             mergeSort(nums, mid + 1, r);
-            merge2(nums, l, r);
+            merge(nums, l, r);
         }
     }
 
@@ -62,45 +60,16 @@ public class MergeSort_leecode {
             }
         }
         while (i <= mid) {
-            tmp[cur++] = nums[i++];//将左边剩余元素填充进tmp中
+            tmp[cur++] = nums[i++];
         }
         while (j <= r) {
-            tmp[cur++] = nums[j++];//将右边剩余元素填充进tmp中
+            tmp[cur++] = nums[j++];
         }
         //将临时数组中的元素放回nums数组中
         cur = 0;
-
         while (l <= r) {
-//        error :while(l < r){     ans: l:0, r:1 的时候虽然是相差1 但是因为有两个索引  所以应该移动两次的
             //细节问题：temp临时数组每次使用都是从0开始储存，而nums则是从left到right
             nums[l++] = tmp[cur++];
         }
     }
-
-    private static void merge2(int[] nums, int l, int r) {
-        int mid = (l+r)>>1;
-        int i = l , j = mid+1;
-        int cur = 0;
-        while(i <= mid && j <= r){
-            if (nums[i] <=nums[j]){
-                tmp[cur++] = nums[i++];
-            }else {
-                tmp[cur++] = nums[j++];
-            }
-        }
-        while(i<= mid){
-            tmp[cur++] = nums[i++];
-        }
-        while(j <=r){
-            tmp[cur++] = nums[j++];
-        }
-        cur  = 0;
-//        error :while(l < r){     ans: l:0, r:1 的时候虽然是相差1 但是因为有两个索引  所以应该移动两次的
-        while(l <= r){
-            nums[l++] = tmp[cur++];
-        }
-
-
-    }
-
 }

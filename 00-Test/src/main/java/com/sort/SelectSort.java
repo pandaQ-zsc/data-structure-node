@@ -24,18 +24,17 @@ public class SelectSort {
 
     }
     static void selectionSort_test(int [] nums) {
-        int min;
         for (int i = 0; i < nums.length; i++) {
-            min = i;
+            int  m = i;
             for (int j = i+1; j <nums.length ; j++) {
-                if (nums[j] < nums[min]){
-                    min = j;
+                if (nums[j] < nums[m]){
+                    m = j;
                 }
             }
-            if (min != i){
-            int tmp = nums[min];
-            nums[min] = nums[i];
-            nums[i] = tmp;
+            if (m!= i){
+                int tmp = nums[m];
+                nums[m] = nums[i];
+                nums[i] = tmp;
             }
         }
     }

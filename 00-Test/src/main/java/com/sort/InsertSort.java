@@ -35,21 +35,32 @@ public class InsertSort {
 
         }
     }
-    // practice
-    public  static void insertSort_test(int[] arr) {
-        int n = arr.length;
-        for(int i = 1 ; i < n ; i++){
+    // right
+    public  static void insertSort2(int[] nums) {
+        for(int i = 1; i<nums.length ;i++){
+            int base = nums[i];
             int j = i-1;
-            int tmp = arr[i];
-            while(j >= 0 && arr[j+1] > tmp ){
-                arr[j +1 ] = arr[j];
+            while(j>=0 && nums[j] > base){
+                nums[j+1] = nums[j];
                 j--;
             }
-            arr[j+1] = tmp;
+            nums[j+1] = base;
         }
     }
 
+    // practice
+    public  static void insertSort_test(int[] nums) {
+        for(int i =1 ; i<nums.length;i++){
+            int base = nums[i];
+            int j = i-1;
+            while (j >= 0 && nums[j] > base) {
+                nums[j+1] = nums[j];
+                j--;
+            }
+            nums[j+1] = base;
+        }
 
+    }
 
     public  static void insertSort_sky(int a[], int n) {
         int i, j, k;
@@ -77,8 +88,8 @@ public class InsertSort {
     public static void main(String[] args) {
         int i;
 //        int[] a = {40, 20, 30, 10, 60, 50};
-        int[] a = {20, 20, 20, 20, 20, 20};
-//        int a[] = {30, 40, 60, 10, 20, 50};
+//        int[] a = {20, 20, 20, 20, 20, 20};
+        int a[] = {30, 40, 60, 10, 20, 50};
 //        int a[] = {10,20,30,40,50,60};
         System.out.print("before sort:");
         for (i = 0; i < a.length; i++) {
@@ -86,7 +97,7 @@ public class InsertSort {
         }
         System.out.print("\n");
 
-        insertSort(a);
+        insertSort_test(a);
 //        bubbleSort1(a, a.length);
         //bubbleSort2(a, a.length);
 
@@ -98,3 +109,4 @@ public class InsertSort {
 
     }
 }
+

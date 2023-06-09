@@ -31,8 +31,21 @@ package com.lee.asia;
 //输出：3
 
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class _287_寻找重复数 {
-    public int findDuplicate(int[] nums) {
+    //如上图，slow 和 fast 会在环中相遇，先假设一些量：起点到环的入口长度为 m，环的周长为 c，在 fast 和 slow 相遇时 slow 走了 n 步。则 fast 走了 2n 步，fast 比 slow 多走了 n 步，而这 n 步全用在了在环里循环（n%c==0）。
+    //当 fast 和 last 相遇之后，我们设置第三个指针 finder，它从起点开始和 slow(在 fast 和 slow 相遇处)同步前进，当 finder 和 slow 相遇时，就是在环的入口处相遇，也就是重复的那个数字相遇。
+    //
+    //链接：https://leetcode.cn/problems/find-the-duplicate-number/solution/kuai-man-zhi-zhen-de-jie-shi-cong-damien_undoxie-d/
+    //为什么 finder 和 slow 相遇在入口?????
+    //fast 和 slow 相遇时，slow 在环中行进的距离是 n-m，其中 n%c==0。这时我们再让 slow 前进 m 步——也就是在环中走了 n 步了。而 n%c==0 即 slow 在环里面走的距离是环的周长的整数倍，就回到了环的入口了，而入口就是重复的数字。
+    //我们不知道起点到入口的长度 m，所以弄个 finder 和 slow 一起走，他们必定会在入口处相遇
+    //
+    //note:第一次相遇只是在重复的序列（索引  slow=4  fast = 4,nums[fast] = 2 && nums[slow] =2）中相遇
+    public static int findDuplicate(int[] nums) {
         int slow = 0;
         int fast = 0;
         while (true) {
@@ -47,5 +60,56 @@ public class _287_寻找重复数 {
                 return nums[slow];
             }
         }
+    }
+
+    //Myself Answer
+    public static int findDuplicate2(int[] nums) {
+        int slow = nums[0];
+        int fast = nums[nums[0]];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }
+        int find = 0;
+        while (nums[find] != nums[slow]) {
+            slow = nums[slow];
+            find = nums[find];
+        }
+        return nums[find];
+
+    }
+
+    public static int findDuplicate1(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
+        for (Map.Entry<Integer, Integer> entry : entries) {
+            if (entry.getValue() > 1) {
+                return entry.getKey();
+            }
+        }
+        return -1;
+    }
+
+    public static int findDuplicate3(int[] nums) {
+        int[] res = new int[nums.length + 1];
+        for (int num : nums) {
+            res[num]++;
+        }
+        for (int i = 1; i < res.length; i++) {
+            if (res[i] > 1) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    public static void main(String[] args) {
+        int[] num = new int[]{1, 3, 4, 2, 2};
+//        int[] num = new int[]{2,5,9,6,9,3,8,9,7,1};
+        System.out.println(findDuplicate3(num));
     }
 }
