@@ -39,6 +39,9 @@ public class MergeSort_leecode {
 
 
     private static void mergeSort(int[] nums, int l, int r) {
+        // 终止条件
+//        if (left >= right)
+//            return;                      // 当子数组长度为 1 时终止递归
         //case : 【】
         // 最小归并[0,1] 两个开始  ---> [0,3] 四个排序---> [0,7] 八个排序
         if (l < r) {
@@ -51,6 +54,7 @@ public class MergeSort_leecode {
 
     private static void merge(int[] nums, int l, int r) {
         int mid = (l + r) >> 1;
+        //保留 l 的值 留给后面将tmp值存储到nums中
         int i = l;
         int j = mid + 1;
         int cur = 0;
@@ -69,38 +73,36 @@ public class MergeSort_leecode {
         }
         //将临时数组中的元素放回nums数组中
         cur = 0;
-
+        //此时【l ~ r】的范围就是每次需要合并的子序列范围
         while (l <= r) {
 //        error :while(l < r){     ans: l:0, r:1 的时候虽然是相差1 但是因为有两个索引  所以应该移动两次的
-            //细节问题：temp临时数组每次使用都是从0开始储存，而nums则是从left到right
+            //细节问题：temp临时数组每次使用都是从0开始储存，
+            // 而nums则是从left到right(由于归并子序列都是从l开始的)
             nums[l++] = tmp[cur++];
         }
     }
 
     private static void merge2(int[] nums, int l, int r) {
-        int mid = (l+r)>>1;
-        int i = l , j = mid+1;
+        int mid = (l + r) >>1;
+        int i = l ,j =mid+1;
         int cur = 0;
-        while(i <= mid && j <= r){
-            if (nums[i] <=nums[j]){
-                tmp[cur++] = nums[i++];
-            }else {
+        while(i<= mid && j <= r){
+            if (nums[i] <= nums[j]){
+                tmp[cur++]  = nums[i++];
+            }else{
                 tmp[cur++] = nums[j++];
             }
         }
-        while(i<= mid){
+        while(i<=mid){
             tmp[cur++] = nums[i++];
         }
-        while(j <=r){
+        while(j<=r){
             tmp[cur++] = nums[j++];
         }
-        cur  = 0;
-//        error :while(l < r){     ans: l:0, r:1 的时候虽然是相差1 但是因为有两个索引  所以应该移动两次的
-        while(l <= r){
+        cur=0;
+        while(l<=r){
             nums[l++] = tmp[cur++];
         }
-
-
     }
 
 }
