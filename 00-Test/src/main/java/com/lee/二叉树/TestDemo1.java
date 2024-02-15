@@ -62,7 +62,7 @@ public class TestDemo1 {
         BinaryTrees.println(bst);
         //完全二叉树非常适合使用数组来表示。
 
-        //数组转换成列表`
+        //数组转换成列表
         ArrayList<Integer> list = new ArrayList<>(Arrays.asList(1,2,3,4,5,1));
         System.out.println(list);
         System.out.println("======");
@@ -78,7 +78,7 @@ public class TestDemo1 {
         System.out.println("xxx");
 
         System.out.println("version2");
-        System.out.println("version3");
+
 
     }
 }
