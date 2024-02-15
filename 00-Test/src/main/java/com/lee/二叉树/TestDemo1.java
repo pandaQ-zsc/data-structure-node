@@ -5,7 +5,7 @@ import com.lee.common.TreeNode;
 import com.mj.BinarySearchTree;
 import com.mj.printer.BinaryTrees;
 
-import java.sql.Array;
+    import java.sql.Array;
 import java.util.*;
 
 /**
@@ -75,6 +75,8 @@ public class TestDemo1 {
         PriorityQueue<Integer> maxPq = new PriorityQueue<>((a,b) -> b-a);
         PriorityQueue<Integer> minPq = new PriorityQueue<>();
 
+
+        System.out.println("hahahhaha ");
 
 
 
