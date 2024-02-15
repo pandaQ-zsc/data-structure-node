@@ -77,7 +77,6 @@ public class TestDemo1 {
 
         System.out.println("xxx");
 
-        System.out.println("version2");
 
 
     }
