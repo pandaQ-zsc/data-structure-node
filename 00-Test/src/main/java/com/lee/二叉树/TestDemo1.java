@@ -75,6 +75,7 @@ public class TestDemo1 {
         PriorityQueue<Integer> maxPq = new PriorityQueue<>((a,b) -> b-a);
         PriorityQueue<Integer> minPq = new PriorityQueue<>();
 
+        System.out.println("xxx");
 
 
 
