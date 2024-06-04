@@ -19,19 +19,38 @@ public class _344_反转字符串 {
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
     public static void main(String[] args) {
         System.out.println(Arrays.toString(new int[]{1,2,3,4}));
-        System.out.println(reverseString(new char[]{'a', 'b', 'c'}));
+        System.out.println(reverseString2(new char[]{'a', 'b', 'c','d','e'}));
     }
 
     public static char[] reverseString(char[] s) {
         int l = 0 ;
         int r = s.length-1;
         while(l < r){
-            s[l] ^= s[r];   //  l ^r
-            s[r] ^= s[l];  // r^l^r
+            s[l] ^= s[r];   //  l^r
+            s[r] ^= s[l];  //  r^l^r
             s[l] ^= s[r];   // l^l^r
             l++;
             r--;
         }
+        return s;
+    }
+
+
+    public static char[] reverseString2(char[] s) {
+        for (int l= 0,r = s.length-1; l<r; l++,r--) {
+            char tmp = s[l];
+            s[l] = s[r];
+            s[r] = tmp;
+            System.out.println(l);
+            System.out.println(r);
+        }
+//        while(l < r){
+//            char tmp = s[l];
+//            s[l] = s[r];
+//            s[r] = tmp;
+//            l++;
+//            r--;
+//        }
         return s;
     }
 }
