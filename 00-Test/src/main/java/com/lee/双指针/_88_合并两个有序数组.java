@@ -38,7 +38,23 @@ public class _88_合并两个有序数组 {
        }
     }
 
+    public static void merge2(int[] nums1, int m, int[] nums2, int n) {
+        int i = m-1;
+        int j = n-1;
+        int cur = nums1.length-1;
+        while(j>=0){
+            if (i>=0&&nums1[i] > nums2[j] ){
+                nums1[cur--]= nums1[i--];
+            }else {
+                nums1[cur--] = nums2[j--];
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         merge1(new int[]{1, 2, 3, 0, 0, 0}, 3, new int[]{2, 5, 6}, 3);
+        merge2(new int[]{2,0}, 1, new int[]{1}, 1);
+
     }
 }
