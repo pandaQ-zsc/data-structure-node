@@ -27,14 +27,13 @@ var removeElement = (nums, val) => {
     return k;
 };
 let removeElement2 = function (nums, val) {
-    let index = 0;
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] !== val) {
-            nums[index++] =  nums[i];
-        }
+    let i = 0;
+        for (let j = i; j < nums.length; j++) {
+            if (nums[j] !== val){
+                nums[i++] = nums[j]
+            }
     }
-    return index;
-
+        return i
 }
 
 

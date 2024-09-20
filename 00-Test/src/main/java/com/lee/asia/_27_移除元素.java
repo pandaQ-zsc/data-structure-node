@@ -30,7 +30,8 @@ public class _27_移除元素 {
 //        int res = removeElement(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
 //        int res2 = removeElement2(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
 //        int res3 = removeElement3(new int[]{3, 2, 3, 2, 2, 2, 3}, 3);
-        int res = removeElement5(new int[]{0,1,2,2,3,0,4,2}, 2);
+//        int res = removeElement5(new int[]{0,1,2,2,3,0,4,2}, 2);
+        int res = removeElement6(new int[]{0,1,2,2,3,0,4,2}, 2);
         System.out.println(res);
 //        System.out.println(res2);
 //        System.out.println(res3);
@@ -96,6 +97,16 @@ public class _27_移除元素 {
         }
         return res;
 
+    }
+    public static int removeElement6(int[] nums, int val) {
+        int i=0;
+        for(int j = i ;j< nums.length;j++){
+            if (nums[j] !=val ){
+                nums[i++] = nums[j];
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+        return i;
     }
 
 }

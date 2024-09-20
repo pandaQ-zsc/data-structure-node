@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @date: 2023/5/17 17:48
  */
 public class _378_KthSmallestElement {
+
     public static int kthSmallest(int[][] matrix, int k) {
         Queue<Integer> queue = new PriorityQueue<>();
         int res = 0;
