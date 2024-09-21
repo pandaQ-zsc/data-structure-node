@@ -15,6 +15,7 @@ public class _169_多数元素 {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
         Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
+
         for (Map.Entry<Integer, Integer> entry : entries) {
             if (entry.getValue() > nums.length >> 1) {
                 res = entry.getKey();
@@ -25,13 +26,34 @@ public class _169_多数元素 {
     }
 
     public int majorityElement2(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
-        int mid = nums.length >> 1;
-        for (int num : nums) {
-            int count = map.getOrDefault(num, 0) + 1;
-            if (count > mid) return num;
-            map.put(num, count);
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (!map.containsKey(nums[i])){
+                map.put(nums[i],1);
+            }else {
+                map.put(nums[i],map.get(nums[i])+1);
+            }
         }
-        return -1;
+        int max = Integer.MIN_VALUE;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > max){
+                //这里是获取键。不是值
+                max = entry.getKey();
+            }
+
+        }
+
+        return max;
+    }
+    //示例 1：
+    //
+    //输入：nums = [3,2,3]
+    //输出：3
+    //示例 2：
+    //
+    //输入：nums = [2,2,1,1,1,2,2]
+    //输出：2
+    public static void main(String[] args) {
+
     }
 }

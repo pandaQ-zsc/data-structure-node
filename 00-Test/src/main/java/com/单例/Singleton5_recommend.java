@@ -4,8 +4,10 @@ package com.单例;
 //不一样的是，它是在内部类里面去创建对象实例。
 //这样的话，只要应用中不使用内部类，JVM就不会去加载这个单例类，也就不会创建单例对象，
 // 从而实现懒汉式的延迟加载。也就是说这种方式可以同时保证延迟加载和线程安全。
+
 public class Singleton5_recommend {
-    Singleton5_recommend() {
+    private Singleton5_recommend() {
+        System.out.println("创建单例模式对象");
     }
 
     private static class InnerSingleton {

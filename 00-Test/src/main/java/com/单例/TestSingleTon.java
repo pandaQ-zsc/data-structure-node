@@ -14,5 +14,6 @@ public class TestSingleTon {
         System.out.println("now:" + now);
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         System.out.println("date:" + date);
+        Singleton5_recommend.getInstance();
     }
 }
