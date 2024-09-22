@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/emp")
+@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired

@@ -24,7 +24,7 @@ public class _121_买卖股票的最佳时机 {
     }
 
 
-    public int maxProfit(int[] prices) {
+    public static int maxProfit(int[] prices) {
         int max = 0;
         int minNum = prices[0];
         for (int i = 1; i < prices.length; i++) {
@@ -36,4 +36,31 @@ public class _121_买卖股票的最佳时机 {
         }
         return max;
     }
+
+    public static int maxProfit3(int[] prices) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < prices.length; i++) {
+            for (int j = i+1; j < prices.length; j++) {
+                max = Math.max(prices[j]-prices[i],max);
+            }
+        }
+        if (max < 0 ) max = 0;
+        return max;
+    }
+    public static int maxProfit4(int[] prices) {
+        if (prices.length < 2) return 0 ;
+        int max=0 ,min = prices[0];
+        for (int i = 1; i < prices.length; i++) {
+            max = Math.max(prices[i]-min,max);
+            min = Math.min(prices[i],min);
+        }
+        return max;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(maxProfit(new int[]{7, 1, 5, 3,7, 6, 4}));
+
+    }
+
 }
